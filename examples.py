@@ -91,6 +91,5 @@ def manyspots(diffrot = None):
         time, dF, dRV, bis = genTSreg(pars, sum = True, nper = nper, npper = npper)
         plotTSPer(time, dF, dRV, bis, period = per_mean, fmp = 6, \
                   figno = [1,2])
-        print '%d spots' % Nspots[i]
-        raw_input()
+        print('%d spots' % Nspots[i])
     return

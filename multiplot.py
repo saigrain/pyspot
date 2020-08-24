@@ -9,7 +9,7 @@ def dofig(figno = 1, nx = 1, ny = 1, test = False, aspect = 0, \
     '''Set up window for multiple plots with shared axes'''
     # First make the labels nice and big and enable latex if requested
     plotpar = {'axes.labelsize': 16 * textsize,
-               'text.fontsize': 16 * textsize,
+               # 'text.fontsize': 16 * textsize,
                'legend.fontsize': 14 * textsize,
                'xtick.labelsize': 14 * textsize,
                'ytick.labelsize': 14 * textsize, 

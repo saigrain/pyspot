@@ -31,7 +31,7 @@ class spots():
         if (self.pk[i] != 0) * (self.decay[i] != 0):
             tt = time - self.pk[i]
             l = tt < 0
-            area[l] *= np.exp(-tt[l]**2 / 10. / self.decay[i]**2) # emergence 5 times as fast
+            area[l] *= np.exp(-tt[l]**2 / 2. / self.decay[i]**2) # emergence 5 times as fast
             l = tt >= 0
             area[l] *= np.exp(-tt[l]**2 / 2. / self.decay[i]**2)  # as decay
         # Fore-shortening 

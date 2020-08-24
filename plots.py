@@ -18,7 +18,7 @@ def plotTS(time, y1, y2, y3 = None, figno = 1, discrete = True, \
         m1 = np.copy(mrk)
     else:
         m1 = np.copy(ls)
-    if (xper == True) * (period != None):
+    if (xper == True) * (not(period is None)):
         tt = time / period - 0.5
         xr = [-0.5,0.5]
         xttl = 'phase'
@@ -26,7 +26,7 @@ def plotTS(time, y1, y2, y3 = None, figno = 1, discrete = True, \
         tt = time
         xr = np.nanmin(time), np.nanmax(time)
         xttl = 'time (days)'
-    if y3 == None:
+    if y3 is None:
         ny = 2
     else:
         ny = 3
@@ -47,7 +47,7 @@ def plotTS(time, y1, y2, y3 = None, figno = 1, discrete = True, \
     ymax = np.nanmax(y2) * fac2
     yr = ymax - ymin
     pl.ylim(ymin - 0.1 * yr, ymax + 0.1 * yr)
-    if y3 != None:
+    if not(y3 is None):
         ax3 = doaxes(ee, 1, ny, 0, 2, sharex = ax1)
         for i in np.arange(M):
             pl.plot(tt, y3[i,:] * fac2, m1[i], c = col[i])
@@ -66,13 +66,13 @@ def plotPer(time, y1, y2, y3 = None, figno = 2, \
     '''Plot light curve and RV amplitude spectra'''
     M, N = np.shape(y1)
     pmax = 2* (np.nanmax(time) - np.nanmin(time))
-    if period == None:
+    if period is None:
         dt = np.median(time[1:]-time[:N-1])
         pmin = dt * 2.
     else:
         pmin = period / fmp
     nper = 1000
-    if period == None:
+    if period is None:
         fac = 1.0
     else:
         fac = period
@@ -83,7 +83,7 @@ def plotPer(time, y1, y2, y3 = None, figno = 2, \
     y = np.zeros((M*ny, N))
     y[:M,:] = y1
     y[M:2*M,:] = y2
-    if not y3 is None:
+    if not (y3 is None):
         y[2*M:,:] = y3
     res = sinefitm(time, y, fmin = 1./pmax, fmax = 1./pmin, \
                    nfreq = nper)
@@ -92,7 +92,7 @@ def plotPer(time, y1, y2, y3 = None, figno = 2, \
     amp = np.sqrt(amps**2 + ampc**2)
     amp1 = amp[:M,:]
     amp2 = amp[M:2*M,:]
-    if not y3 is None:
+    if not (y3 is None):
         amp3 = amp[2*M:,:]
     
     ee = dofig(figno, 1, ny, aspect = 1)
@@ -107,13 +107,13 @@ def plotPer(time, y1, y2, y3 = None, figno = 2, \
     for i in np.arange(M):
         pl.plot(fac / pers, amp2[i,:] * fac2, ls[i], c = col[i])
     pl.ylim(0, 1.1 * np.nanmax(amp2) * fac2)    
-    if y3 != None:
+    if not(y3 is None):
         ax3 = doaxes(ee, 1, ny, 0, 2, sharex = ax1)
         pl.ylabel(r"$A_{\mathrm{bis}}$ (m/s)")
         for i in np.arange(M):
             pl.plot(fac / pers, amp3[i,:] * fac3, ls[i], c = col[i])
         pl.ylim(0, 1.1 * np.nanmax(amp3) * fac3)    
-    if period == None:
+    if period is None:
         pl.xlabel(r"Frequency (cycles/day)")
     else:
         pl.xlabel(r"Frequency (cycles/$P_{\mathrm{rot}}^{-1}$)")
